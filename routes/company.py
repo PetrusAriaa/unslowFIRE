@@ -1,11 +1,10 @@
 import json
-from typing import Any
 import uuid
 from pydantic import BaseModel
 from fastapi import APIRouter, Response, status
 from time import sleep
 
-from .db import dummy_db
+from .db import COMPANY_DATA
 
 class Company(BaseModel):
     _id: str | None
@@ -18,8 +17,8 @@ user_route = APIRouter()
 def dummy_connection(key: int=-1) -> Company:
     sleep(1) # mock database connection
     if key == -1:
-        return dummy_db
-    return dummy_db[key]
+        return COMPANY_DATA
+    return COMPANY_DATA[key]
 
 @user_route.get("/")
 def get_users() -> Response:
@@ -40,7 +39,7 @@ def get_users(counter: int) -> Response:
 @user_route.post("/")
 def create_user(company: Company) -> Response:
     _id = str(uuid.uuid4())
-    dummy_db.append({
+    COMPANY_DATA.append({
         "_id": _id,
         "name": company.name,
         "head_office": company.head_office
