@@ -52,6 +52,7 @@ COMPANY_DATA = [
 ]
 
 USER_DATA = [
-    {"email": "user123@gmail.com", "password": "user01pass"},
-    {"email": "user456@gmail.com", "password": "user02pass"},
+    {"username": "johndoe123", "full_name": "John Doe", "email": "johndoe123@gmail.com", "password":"thisisjohndoe", "disabled": False},
+    {"username": "lilycatherine", "full_name": "Lily Catherine", "email": "lilycat@gmail.com", "password":"lilyisacat", "disabled": False},
+    {"username": "liyaotterzackenhuberg", "full_name": "Liya Otter Zackenhuberg", "email": "liyaoz0012@gmail.com", "password":"liyaoz123", "disabled": True}
 ]
