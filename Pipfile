@@ -7,6 +7,10 @@ name = "pypi"
 fastapi = "0.105.0"
 uvicorn = {extras = ["standard"], version = "*"}
 httpx = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
+python-dotenv = "*"
+python-multipart = "*"
 
 [dev-packages]
 faker = "*"
