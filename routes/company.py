@@ -1,15 +1,20 @@
 import json
 import uuid
-from pydantic import BaseModel
-from fastapi import APIRouter, Response, status
 from time import sleep
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, Response, status
+from pydantic import BaseModel
 
 from .db import COMPANY_DATA
+from .auth import oauth2_token_scheme
+
 
 class Company(BaseModel):
     _id: str | None
     name: str
     head_office: str
+
 
 user_route = APIRouter()
 
@@ -20,12 +25,14 @@ def dummy_connection(key: int=-1) -> Company:
         return COMPANY_DATA
     return COMPANY_DATA[key]
 
+
 @user_route.get("/")
-def get_users() -> Response:
+def get_users(token: Annotated[str, Depends(oauth2_token_scheme)]) -> Response:
     data = dummy_connection()
     res = Response(json.dumps({"error": None, "data": data}))
     res.headers["Content-Type"] = "application/json"
     return res
+
 
 @user_route.get("/{counter}")
 def get_users(counter: int) -> Response:
@@ -35,6 +42,7 @@ def get_users(counter: int) -> Response:
     res = Response(json.dumps({"error": None, "data": data}))
     res.headers["Content-Type"] = "application/json"
     return res
+
 
 @user_route.post("/")
 def create_user(company: Company) -> Response:
